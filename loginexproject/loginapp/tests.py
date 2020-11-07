@@ -13,8 +13,8 @@ options.add_argument("--log-level=3")
 
 driver = webdriver.Chrome('C:\\Users\\jae04\\Desktop\\chromedriver_win32\\chromedriver.exe')
 driver.get('https://uportal.catholic.ac.kr/sso/jsp/sso/ip/login_form.jsp')
-driver.find_element_by_name('userId').send_keys('jae04099')
-driver.find_element_by_name('password').send_keys('Lc0711zz')
+driver.find_element_by_name('userId').send_keys()
+driver.find_element_by_name('password').send_keys()
 
 driver.find_element_by_xpath('/html/body/div/form/div/div/div[1]/dl/dd[3]/button').click()
 
