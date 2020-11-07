@@ -1,6 +1,8 @@
 from django import forms
 from .models import Login
 
+import tests
+
 class Login(forms.ModelForm):
     class Meta:
         model = Login
