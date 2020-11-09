@@ -1,9 +1,7 @@
 from django import forms
 from .models import Login
 
-import tests
-
-class Login(forms.ModelForm):
+class CreateLogin(forms.ModelForm):
     class Meta:
         model = Login
         fields = ['trinity_id', 'trinity_password']

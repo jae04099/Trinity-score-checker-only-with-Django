@@ -1,7 +1,4 @@
 from django.test import TestCase
-
-# Create your tests here.
-#<--------- 셀레니움으로 크롤링 ------------>
 from selenium import webdriver
 import time
 
