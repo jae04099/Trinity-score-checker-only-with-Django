@@ -15,8 +15,8 @@ def index(request):
         if form.is_valid():
             _Id = form.cleaned_data['trinity_id']
             _Password = form.cleaned_data['trinity_password']
-            useSelenium(_Id, _Password)
-            return redirect('result')
+            request.session['result'] = useSelenium(_Id, _Password)
+            return render(request, 'result.html')
         else:
             return redirect('login')
 
@@ -26,7 +26,14 @@ def index(request):
 
 
 def result(request):
-    return render(request, 'result.html')
+    session_id = request.session.session_key
+    result = request.session['result']
+
+    contents = {
+        'session_id': session_id,
+        'result': result 
+    }
+    return render(request, 'result.html', contents)
 
 
 def useSelenium(_Tid, _Tpw):
@@ -42,11 +49,11 @@ def useSelenium(_Tid, _Tpw):
     driver.find_element_by_xpath(
         '/html/body/div/form/div/div/div[1]/dl/dd[3]/button').click()
 
-    time.sleep(0.5)
+    time.sleep(0.3)
     driver.get(
         "https://uportal.catholic.ac.kr/stw/scsr/ssco/sscoSemesterGradesInq.do")
-    time.sleep(1)
+    time.sleep(0.3)
     score_num = driver.find_element_by_class_name('ucups-grid-cq')
-    score_result = score_num.text
+    scoreresult = score_num.text
 
-    return print("엥", score_result)
+    return scoreresult
