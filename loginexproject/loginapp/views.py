@@ -16,7 +16,7 @@ def index(request):
             _Id = form.cleaned_data['trinity_id']
             _Password = form.cleaned_data['trinity_password']
             request.session['result'] = useSelenium(_Id, _Password)
-            return render(request, 'result.html')
+            return redirect('result')
         else:
             return redirect('login')
 
