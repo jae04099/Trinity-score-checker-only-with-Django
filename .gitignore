@@ -162,3 +162,5 @@ dmypy.json
 # End of https://www.toptal.com/developers/gitignore/api/django,vscode
 loginexproject/loginexproject/settings.py
 .gitignore
+loginexproject/loginexproject/settings.py
+loginexproject/loginexproject/__pycache__/settings.cpython-38.pyc
