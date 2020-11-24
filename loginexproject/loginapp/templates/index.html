@@ -9,16 +9,36 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+    <script src="{% static 'javascript/app.js' %}" type="text/javascript"></script>
 </head>
 
 <body class="text-center">
     <form method="POST" class="form-signin">
-        <img class="mb-4" src=".\static\image\The_Catholic_University_of_Korea.jpg" alt=""
-            width="72" height="auto">
+        <img class="mb-4" src=".\static\image\The_Catholic_University_of_Korea.jpg" alt="" width="72" height="auto">
         <h1 class="h3 mb-3 font-weight-normal">원클릭 성적확인</h1>
         {% csrf_token %}
         {{ form }}
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value='로그인'/>
+        {% if login_fail %}
+        <div class="alert-error" >
+            <span>아이디 및 비밀번호를 확인하세요.</span>
+        </div>
+        {% endif %}
+        <div id="login-btn" style="position: relative;">
+            <input class="btn btn-lg btn-primary btn-block" id="btn-login" type="submit" value='로그인' />
+            <div class="loader loader--style2" id="loader" style="display: none;">
+                <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px"
+                    viewBox="0 0 50 50"
+                    style="enable-background:new 0 0 50 50; position: absolute; top: 2.5px; right: 130px; "
+                    xml:space="preserve">
+                    <path fill="#f2f2f2"
+                        d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                        <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25"
+                            to="360 25 25" dur="0.6s" repeatCount="indefinite" />
+                    </path>
+                </svg>
+            </div>
+        </div>
     </form>
 </body>
 

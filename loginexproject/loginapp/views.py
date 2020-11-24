@@ -6,6 +6,9 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import TimeoutException
+
 import time
 
 # Create your views here.
@@ -18,9 +21,12 @@ def index(request):
             _Id = form.cleaned_data['trinity_id']
             _Password = form.cleaned_data['trinity_password']
             request.session['result'] = useSelenium(_Id, _Password)
-            return redirect('result')
-        else:
-            return redirect('login')
+            if request.session['result'] == False:
+                return redirect('index')
+            else:
+                return redirect('result')
+        # else:
+        #     return redirect('login')
 
     else:
         form = CreateLogin()
@@ -53,17 +59,22 @@ def useSelenium(_Tid, _Tpw):
     driver.get('https://uportal.catholic.ac.kr/sso/jsp/sso/ip/login_form.jsp')
     driver.find_element_by_name('userId').send_keys(_Tid)
     driver.find_element_by_name('password').send_keys(_Tpw)
-    
     driver.find_element_by_xpath(
         '/html/body/div/form/div/div/div[1]/dl/dd[3]/button').click()
     time.sleep(1)
-    driver.get("https://uportal.catholic.ac.kr/stw/scsr/ssco/sscoSemesterGradesInq.do")
-    scoreresult = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, '.ucups-grid-cq'))
-    )
-    finalresult = scoreresult.text
-    driver.close()
+    # driver.switch_to.alert.get_text();
+    try:
+        driver.switch_to_alert()
+        return False
+    except:
 
-    return finalresult
+        driver.get("https://uportal.catholic.ac.kr/stw/scsr/ssco/sscoSemesterGradesInq.do")
+        scoreresult = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, '.ucups-grid-cq'))
+        )
+        finalresult = scoreresult.text
+        driver.close()
+
+        return finalresult
     
     # score_num = driver.find_element_by_class_name('ucups-grid-cq')
